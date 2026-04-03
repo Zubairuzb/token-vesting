@@ -1,18 +1,1 @@
-# Compiler files
-cache/
-out/
-
-# Ignores development broadcast logs
-!/broadcast
-/broadcast/*/31337/
-/broadcast/**/dry-run/
-
-# Docs
-docs/
-
-# Dotenv file
 .env
-
-PRIVATE_KEY=c30c9c45ba3a8267435cb4f2c0ded9365e95fc541de0e199b544dbf0a2105eb7
-SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/pegyOuuLjPZRNp4zk6V6A
-ETHERSCAN_API_KEY=FUPTXKEDI8VC8RCFPESCSRUURS79869N5Y
