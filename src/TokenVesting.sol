@@ -101,7 +101,7 @@ contract TokenVesting is Ownable, ReentrancyGuard, Pausable {
         uint128 totalAmount,
         uint64 cliffDuration,
         uint64 vestingDuration
-    ) external {
+    ) external onlyOwner whenNotPaused {
         // Check that amount is not zero.
         // No point creating a schedule for zero tokens
         if (totalAmount == 0) {
@@ -136,6 +136,8 @@ contract TokenVesting is Ownable, ReentrancyGuard, Pausable {
             vestingDuration: vestingDuration,
             revoked: false
         });
+
+        s_totalLockedTokens[token] += totalAmount;
 
         emit VestingScheduleCreated(
             token,
@@ -205,6 +207,10 @@ contract TokenVesting is Ownable, ReentrancyGuard, Pausable {
         }
 
         uint256 vested = _calculateVested(schedule);
+
+        if (vested > schedule.totalAmount) {
+            vested = schedule.totalAmount;
+        }
 
         uint256 unvested = schedule.totalAmount - vested;
 
@@ -294,6 +300,10 @@ contract TokenVesting is Ownable, ReentrancyGuard, Pausable {
         VestingSchedule storage schedule
     ) internal view returns (uint256) {
         uint256 vested = _calculateVested(schedule);
+
+        if (vested > schedule.totalAmount) {
+            vested = schedule.totalAmount;
+        }
 
         return vested - schedule.claimedAmount;
     }
