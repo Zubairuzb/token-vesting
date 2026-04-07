@@ -4,16 +4,17 @@ import { ReactNode } from "react";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
-import "@rainbow-me/rainbowkit/styles.css";
+import { injected } from "wagmi/connectors";
 
-const config = getDefaultConfig({
-
-    appName: "Token Vesting Protocol",
-
-    projectId: "bf4df3b1699248fad9204a6f81fb7b31",
-
+// Simple config using only injected connector
+// injected() directly talks to window.ethereum
+// which is exactly what MetaMask exposes
+const config = createConfig({
     chains: [sepolia],
+    connectors: [injected()],
+    transports: {
+        [sepolia.id]: http(),
+    },
     ssr: true,
 });
 
@@ -23,9 +24,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     return (
         <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
-                <RainbowKitProvider>
-                    {children}
-                </RainbowKitProvider>
+                {children}
             </QueryClientProvider>
         </WagmiProvider>
     );

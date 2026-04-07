@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "@/components/Providers";
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "Token Vesting Protocol",
@@ -14,10 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {/* Providers wraps everything so wallet state is
-            available on every page of the app */}
-        <Providers>{children}</Providers>
+      <body suppressHydrationWarning={true}>
+        {/* ClientLayout handles all browser-only dependencies
+            keeping this server component clean */}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

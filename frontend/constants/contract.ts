@@ -1,6 +1,8 @@
 export const CONTRACT_ADDRESS =
     "0xbbfb8927ceec395cf0de1715811335998802e7ae" as `0x${string}`;
 
+export const TOKEN_ADDRESS = "0x8137da44326e5486e0d1cab0f794a990b470dd76" as `0x${string}`;
+
 export const CONTRACT_ABI = [
     {
         name: "createVestingSchedule",
