@@ -42,9 +42,6 @@ export default function Navbar() {
                         Beneficiary
                     </Link>
 
-                    // Replace the connect button section in both desktop and mobile
-                    // with this component that detects the environment
-
                     {isConnected ? (
                         <div className="flex items-center gap-3">
                             <span className="text-gray-300 text-sm bg-gray-800 px-3 py-2 rounded-lg">
@@ -58,28 +55,25 @@ export default function Navbar() {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex flex-col gap-2 w-full md:flex-row md:w-auto">
-                            {/* Desktop — MetaMask extension */}
-                            <button
-                                onClick={() => connect({ connector: injected() })}
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                                Connect Wallet
-                            </button>
-                            {/* Mobile — WalletConnect */}
-                            <button
-                                onClick={() =>
+                        <button
+                            onClick={() => {
+                                // Check if window.ethereum exists — means MetaMask is installed.
+                                // If yes use injected connector (desktop MetaMask).
+                                // If no use WalletConnect (mobile wallets, QR code)
+                                if (typeof window !== "undefined" && window.ethereum) {
+                                    connect({ connector: injected() });
+                                } else {
                                     connect({
                                         connector: walletConnect({
                                             projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
                                         }),
-                                    })
+                                    });
                                 }
-                                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors md:hidden"
-                            >
-                                Mobile Wallet
-                            </button>
-                        </div>
+                            }}
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                            Connect Wallet
+                        </button>
                     )}
                 </div>
 
@@ -121,8 +115,6 @@ export default function Navbar() {
                     </Link>
 
                     <div className="pt-2">
-                       // Replace the connect button section in both desktop and mobile
-                        // with this component that detects the environment
 
                         {isConnected ? (
                             <div className="flex items-center gap-3">
@@ -137,28 +129,22 @@ export default function Navbar() {
                                 </button>
                             </div>
                         ) : (
-                            <div className="flex flex-col gap-2 w-full md:flex-row md:w-auto">
-                                {/* Desktop — MetaMask extension */}
-                                <button
-                                    onClick={() => connect({ connector: injected() })}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                                >
-                                    Connect Wallet
-                                </button>
-                                {/* Mobile — WalletConnect */}
-                                <button
-                                    onClick={() =>
+                            <button
+                                onClick={() => {
+                                    if (typeof window !== "undefined" && window.ethereum) {
+                                        connect({ connector: injected() });
+                                    } else {
                                         connect({
                                             connector: walletConnect({
                                                 projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
                                             }),
-                                        })
+                                        });
                                     }
-                                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors md:hidden"
-                                >
-                                    Mobile Wallet
-                                </button>
-                            </div>
+                                }}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                            >
+                                Connect Wallet
+                            </button>
                         )}
                     </div>
                 </div>
