@@ -2,8 +2,10 @@
 
 A full-stack decentralized token vesting protocol built on Ethereum. Enables organizations to lock ERC20 tokens for team members and investors with customizable cliff periods and linear vesting schedules.
 
-🔗 **Live Demo:** https://token-vesting-31wgpw4a0-zubairuzbs-projects.vercel.app/
+🔗 **Live Demo:** https://token-vesting-mocha.vercel.app/
+
 📄 **Contract:** https://sepolia.etherscan.io/address/0xbbfb8927ceec395cf0de1715811335998802e7ae
+
 🪙 **Test Token:** https://sepolia.etherscan.io/address/0x8137da44326e5486e0d1cab0f794a990b470dd76
 
 ---
@@ -186,7 +188,7 @@ Open http://localhost:3000
 
 | Contract | Address |
 |----------|---------|
-| TokenVesting | YOUR_CONTRACT_ADDRESS |
+| TokenVesting | 0xbbfb8927ceec395cf0de1715811335998802e7ae |
 | MockToken (VTT) | 0x8137da44326e5486e0d1cab0f794a990b470dd76 |
 
 ---
@@ -216,4 +218,4 @@ Open http://localhost:3000
 ## Author
 
 Built by Zubairu Musa  
-[GitHub](https://github.com/zubairuzb) · [LinkedIn](www.linkedin.com/in/zubairu-musa-a97108160)
+[GitHub](https://github.com/zubairuzb) · [LinkedIn](https://linkedin.com/in/zubairu-musa-a97108160)
