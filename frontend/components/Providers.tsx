@@ -4,14 +4,18 @@ import { ReactNode } from "react";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { injected } from "wagmi/connectors";
+import { injected, walletConnect } from "wagmi/connectors";
 
-// Simple config using only injected connector
-// injected() directly talks to window.ethereum
-// which is exactly what MetaMask exposes
 const config = createConfig({
     chains: [sepolia],
-    connectors: [injected()],
+    connectors: [
+        // injected() for desktop browser extensions
+        injected(),
+        // walletConnect() for mobile wallets
+        walletConnect({
+            projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+        }),
+    ],
     transports: {
         [sepolia.id]: http(),
     },
